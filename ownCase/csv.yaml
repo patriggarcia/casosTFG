@@ -1,0 +1,263 @@
+tag: csv
+structured: True
+timestamp_format: "%Y-%m-%d %H:%M:%S"
+#separator: ,
+timearg: ts
+
+
+# Variables Section
+# =================
+VARIABLES:
+
+- name: ts
+  matchtype: time
+  where: 0
+- name: src_ip
+  matchtype: ip
+  where: 1
+- name: src_port
+  matchtype: number
+  where: 2
+- name: dst_ip
+  matchtype: ip
+  where: 3
+- name: dst_port
+  matchtype: number
+  where: 4
+- name: proto
+  matchtype: string
+  where: 5
+- name: service
+  matchtype: string
+  where: 6
+- name: duration
+  matchtype: number
+  where: 7
+- name: src_bytes
+  matchtype: number
+  where: 8
+- name: dst_bytes
+  matchtype: number
+  where: 9
+- name: conn_state
+  matchtype: string
+  where: 10
+- name: missed_bytes
+  matchtype: number
+  where: 11
+- name: src_pkts
+  matchtype: number
+  where: 12
+- name: src_ip_bytes
+  matchtype: number
+  where: 13
+- name: dst_pkts
+  matchtype: number
+  where: 14
+- name: dst_ip_bytes
+  matchtype: number
+  where: 15
+# --- DNS ---
+- name: dns_query
+  matchtype: string
+  where: 16
+- name: dns_qclass
+  matchtype: number
+  where: 17
+- name: dns_qtype
+  matchtype: number
+  where: 18
+- name: dns_rcode
+  matchtype: number
+  where: 19
+- name: dns_AA
+  matchtype: string
+  where: 20
+- name: dns_RD
+  matchtype: string
+  where: 21
+- name: dns_RA
+  matchtype: string
+  where: 22
+- name: dns_rejected
+  matchtype: string
+  where: 23
+# --- SSL ---
+- name: ssl_version
+  matchtype: string
+  where: 24
+- name: ssl_cipher
+  matchtype: string
+  where: 25
+- name: ssl_resumed
+  matchtype: string
+  where: 26
+- name: ssl_established
+  matchtype: string
+  where: 27
+- name: ssl_subject
+  matchtype: string
+  where: 28
+- name: ssl_issuer
+  matchtype: string
+  where: 29
+# --- HTTP ---
+- name: http_trans_depth
+  matchtype: string
+  where: 30
+- name: http_method
+  matchtype: string
+  where: 31
+- name: http_uri
+  matchtype: string
+  where: 32
+- name: http_version
+  matchtype: string
+  where: 33
+- name: http_request_body_len
+  matchtype: number
+  where: 34
+- name: http_response_body_len
+  matchtype: number
+  where: 35
+- name: http_status_code
+  matchtype: number
+  where: 36
+- name: http_user_agent
+  matchtype: string
+  where: 37
+- name: http_orig_mime_types
+  matchtype: string
+  where: 38
+- name: http_resp_mime_types
+  matchtype: string
+  where: 39
+# --- Weird logs ---
+- name: weird_name
+  matchtype: string
+  where: 40
+- name: weird_addl
+  matchtype: string
+  where: 41
+- name: weird_notice
+  matchtype: string
+  where: 42
+# --- Labels ---
+- name: label
+  matchtype: number
+  where: 43
+- name: type
+  matchtype: string
+  where: 44
+
+FEATURES: 
+
+#----dst_port-----
+- name: dport_dns
+  variable: dst_port
+  matchtype: single
+  value: 53
+- name: dport_http2
+  variable: dst_port
+  matchtype: single
+  value: 8080
+- name: dport_mds
+  variable: dst_port
+  matchtype: single
+  value: 445
+- name: dport_http
+  variable: dst_port
+  matchtype: single
+  value: 80
+- name: dport_https
+  variable: dst_port
+  matchtype: single
+  value: 443
+
+#----src_port-----
+- name: sport_http2
+  variable: src_port
+  matchtype: single
+  value: 8080
+- name: sport_mds
+  variable: src_port
+  matchtype: single
+  value: 445
+- name: sport_http
+  variable: src_port
+  matchtype: single
+  value: 80
+- name: sport_https
+  variable: src_port
+  matchtype: single
+  value: 443
+  
+
+#----service-----
+- name: dns
+  variable: service
+  matchtype: single
+  value: dns
+
+#----proto-----
+- name: protocol_tcp
+  variable: proto
+  matchtype: single
+  value: tcp
+- name: protocol_udp
+  variable: proto
+  matchtype: single
+  value: udp
+  
+#----type-----
+- name: ddos
+  variable: type
+  matchtype: single
+  value: ddos
+- name: backdoor
+  variable: type
+  matchtype: single
+  value: backdoor
+- name: dos
+  variable: type
+  matchtype: single
+  value: dos
+- name: injection
+  variable: type
+  matchtype: single
+  value: injection
+- name: mitm
+  variable: type
+  matchtype: single
+  value: mitm
+- name: normal
+  variable: type
+  matchtype: single
+  value: normal
+- name: password
+  variable: type
+  matchtype: single
+  value: password
+- name: ransomware
+  variable: type
+  matchtype: single
+  value: ransomware
+- name: scanning
+  variable: type
+  matchtype: single
+  value: scanning
+- name: xss
+  variable: type
+  matchtype: single
+  value: xss
+
+  #----label-----
+- name: safe
+  variable: label
+  matchtype: single
+  value: 0
+- name: attack
+  variable: label
+  matchtype: single
+  value: 1
+  
